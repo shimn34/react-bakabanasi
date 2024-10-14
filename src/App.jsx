@@ -6,16 +6,38 @@ function randomValueFromArray(array) {
 }
 
 export default function App() {
-    const showStory = false;
-    const xItem = "";
-    const yItem = "";
-    const zItem = "";
-    const ukus = "us";
+    const [customName, setCustomName] = useState('');
+    const [ukus, setUkus] = useState('us');
+    const [showStory, setShowStory] = useState(false);
+    const [story, setStory] = useState('');
+    const [xItem, setXItems] = useState('');
+    const [yItem, setYItems] = useState('');
+    const [zItem, setZItems] = useState('');
+
+    function handleClickGenerateRandomStory(event) {
+        event.preventDefault();
+        const xItems = ['Willy the Goblin', 'Big Daddy', 'Father Christmas'];
+        const yItems = ['the soup kitchen', 'Disneyland', 'the White House'];
+        const zItems = ['spontaneously', 'melted into a puddle on the sidewalk', 'turned into a slug and crawled away'];
+
+        setXItems(randomValueFromArray(xItems));
+        setYItems(randomValueFromArray(yItems));
+        setZItems(randomValueFromArray(zItems));
+
+        const name = customName || 'Bob';
+        setShowStory(true);
+    }
+
     return (
         <>
             <div>
                 <label htmlFor="customname">Enter custom name:</label>
-                <input type="text" placeholder="" />
+                <input
+                    type="text"
+                    placeholder=""
+                    value={customName}
+                    onChange={(e) => setCustomName(e.target.value)}
+                />
             </div>
             <div>
                 <label htmlFor="us">US</label>
@@ -24,7 +46,7 @@ export default function App() {
                 <input type="radio" value="uk" checked={ukus === "uk"} />
             </div>
             <div>
-                <button>Generate random story</button>
+                <button onClick={handleClickGenerateRandomStory}> Generate random story</button>
             </div>
             {showStory && (
                 <p>
